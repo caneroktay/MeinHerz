@@ -19,11 +19,10 @@
         ✅ No data is shared with third parties.\n
         ✅ The app does not require an internet connection.
     </string>
-    <string name="data_privacy_text_title"></string>
+    <string name="data_privacy_text_title">..</string>
     <string name="btn_accept">I have read and accept</string>
-    <string name="onboard_lastname">Your Last Name</string>
-    <string name="onboard_firstname">Your First Name</string>
     <string name="onboard_lastname">Last Name</string>
+    <string name="onboard_firstname">First Name</string>
     <string name="onboard_birth">Date of Birth (DD.MM.YYYY)</string>
     <string name="onboard_weight">Current Weight (kg)</string>
     <string name="onboard_privacy">⚠️ All your data is stored ONLY on this device, locally.</string>
