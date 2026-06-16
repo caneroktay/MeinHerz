@@ -25,8 +25,22 @@ import kotlinx.coroutines.runBlocking
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Density
+import android.Manifest
+import android.os.Build
+import androidx.activity.result.contract.ActivityResultContracts
+import com.kalbim.notification.PermissionManager
 
 class MainActivity : ComponentActivity() {
+
+    private val notificationPermissionLauncher =
+        registerForActivityResult(
+            ActivityResultContracts.RequestPermission()
+        ) { isGranted ->
+            if (isGranted) {
+                ReminderScheduler.scheduleAll(this)
+            }
+        }
+
     private val vm: KalbimViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,9 +58,25 @@ class MainActivity : ComponentActivity() {
         )
 
         enableEdgeToEdge()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (!PermissionManager.hasNotificationPermission(this)) {
+                notificationPermissionLauncher.launch(
+                    Manifest.permission.POST_NOTIFICATIONS
+                )
+            }
+        }
         WindowCompat.setDecorFitsSystemWindows(window, false)
         NotificationHelper.createChannel(this)
         ReminderScheduler.scheduleAll(this)
+
+        val notificationPermissionLauncher =
+            registerForActivityResult(
+                ActivityResultContracts.RequestPermission()
+            ) { isGranted ->
+                if (isGranted) {
+                    ReminderScheduler.scheduleAll(this)
+                }
+            }
 
         setContent {
             // 1. Tema Durumunu Belirle
