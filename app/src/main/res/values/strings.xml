@@ -195,6 +195,14 @@
     <string name="medi_notifi">🔔 Hatırlatıcılar</string>
     <string name="medi_note">Notlar (isteğe bağlı)</string>
     <string name="medi_hour">Saat:</string>
+    <string name="notif_morning_title">🌅 Sabah Ölçümü</string>
+    <string name="notif_morning_body">Günaydın! Kilonuzu girmeyi unutmayın.</string>
+    <string name="notif_noon_title">☀️ Öğle Ölçümü</string>
+    <string name="notif_noon_body">Tansiyon ve nabzınızı girdiniz mi?</string>
+    <string name="notif_evening_title">🌙 Akşam Ölçümü</string>
+    <string name="notif_evening_body">Akşam tansiyon ölçümünüzü girmeyi unutmayın.</string>
+    <string name="notif_med_title">💊 İlaç Hatırlatıcısı</string>
+    <string name="notif_med_body">%s almayı unutmayın!</string>
 
 
 

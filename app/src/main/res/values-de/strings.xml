@@ -195,5 +195,13 @@
     <string name="medi_notifi">🔔 Erinnerungen</string>
     <string name="medi_note">Notizen (optional)</string>
     <string name="medi_hour">Uhrzeit:</string>
+    <string name="notif_morning_title">🌅 Morgenmessung</string>
+    <string name="notif_morning_body">Guten Morgen! Vergessen Sie nicht, Ihr Gewicht einzutragen.</string>
+    <string name="notif_noon_title">☀️ Mittagsmessung</string>
+    <string name="notif_noon_body">Haben Sie Blutdruck und Puls eingetragen?</string>
+    <string name="notif_evening_title">🌙 Abendmessung</string>
+    <string name="notif_evening_body">Vergessen Sie nicht, Ihren Abend-Blutdruck einzutragen.</string>
+    <string name="notif_med_title">💊 Medikamenten-Erinnerung</string>
+    <string name="notif_med_body">Vergessen Sie nicht, %s einzunehmen!</string>
 
 </resources>

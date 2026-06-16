@@ -3,6 +3,7 @@ package com.kalbim.notification
 import android.content.Context
 import androidx.work.Worker
 import androidx.work.WorkerParameters
+import com.kalbim.R
 
 class ReminderWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, params) {
     override fun doWork(): Result {
@@ -11,20 +12,20 @@ class ReminderWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, param
 
         val (title, body) = when {
             medName.isNotBlank() -> Pair(
-                "💊 İlaç Hatırlatıcısı",
-                "$medName almayı unutmayın!"
+                applicationContext.getString(R.string.notif_med_title),
+                applicationContext.getString(R.string.notif_med_body, medName)
             )
             type == "morning" -> Pair(
-                "🌅 Sabah Ölçümü",
-                "Günaydın! Kilonuzu girmeyi unutmayın."
+                applicationContext.getString(R.string.notif_morning_title),
+                applicationContext.getString(R.string.notif_morning_body)
             )
             type == "noon" -> Pair(
-                "☀️ Öğle Ölçümü",
-                "Tansiyon ve nabzınızı girdiniz mi?"
+                applicationContext.getString(R.string.notif_noon_title),
+                applicationContext.getString(R.string.notif_noon_body)
             )
             else -> Pair(
-                "🌙 Akşam Ölçümü",
-                "Akşam tansiyon ölçümünüzü girmeyi unutmayın."
+                applicationContext.getString(R.string.notif_evening_title),
+                applicationContext.getString(R.string.notif_evening_body)
             )
         }
 
