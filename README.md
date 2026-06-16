@@ -1,4 +1,7 @@
-# 🫀 Kalbim – Herzgesundheit-Tracker
+
+# Kalbim – Herzgesundheit-Tracker
+![Kalbim_Logo](assets/kalbim_logo.png)
+
 
 **Kalbim** (türkisch für „Mein Herz") ist eine native Android-Anwendung für Patienten mit 
 Herzinsuffizienz oder erhöhtem Herzrisiko. Die App ermöglicht die systematische Erfassung, 
