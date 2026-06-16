@@ -128,7 +128,7 @@ Die App unterstützt folgende Sprachen:
 
 | Sprache | Code | Datei |
 |---|---|---|
-| 🇹🇷 Türkisch (Standard) | `tr` | `res/values/strings.xml` |
+| 🇹🇷 Türkisch | `tr` | `res/values/strings.xml` |
 | 🇩🇪 Deutsch | `de` | `res/values-de/strings.xml` |
 | 🇬🇧 Englisch | `en` | `res/values-en/strings.xml` |
 
