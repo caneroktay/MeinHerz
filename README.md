@@ -92,3 +92,105 @@ Visualisierung und den Export von medizinischen Messwerten – vollständig offl
 ---
 
 ## 📐 Architektur
+
+com.kalbim/
+
+├── data/
+
+│   ├── model/          ← Datenmodelle (UserProfile, Measurement, Medication)
+
+│   ├── db/             ← Room Database & DAO
+
+│   ├── repository/     ← Datenzugriffsschicht
+
+│   └── backup/         ← JSON Export / Import
+
+├── ui/
+
+│   ├── screens/        ← Alle Bildschirme (Home, Liste, Grafik, Profil, Bericht)
+
+│   ├── components/     ← Wiederverwendbare UI-Komponenten
+
+│   └── theme/          ← Farben, Typografie, Theme
+
+├── viewmodel/          ← Geschäftslogik (KalbimViewModel)
+
+├── notification/       ← WorkManager, Benachrichtigungen, Sprachverwaltung
+
+└── pdf/                ← PDF-Generator
+
+
+---
+
+## 🌍 Mehrsprachigkeit
+
+Die App unterstützt folgende Sprachen:
+
+| Sprache | Code | Datei |
+|---|---|---|
+| 🇹🇷 Türkisch (Standard) | `tr` | `res/values/strings.xml` |
+| 🇩🇪 Deutsch | `de` | `res/values-de/strings.xml` |
+| 🇬🇧 Englisch | `en` | `res/values-en/strings.xml` |
+
+Die Sprache wird automatisch anhand der Systemsprache gewählt.
+Unterstützte Sprachen werden direkt übernommen, andernfalls wird Englisch verwendet.
+
+---
+
+## 📋 Backup-Format
+
+Das JSON-Backup-Format für Import/Export:
+
+```json
+{
+  "version": 1,
+  "exportDate": "11.06.2026 23:01",
+  "profile": {
+    "firstName": "Max",
+    "lastName": "Mustermann",
+    "birthDate": "01.01.1955",
+    "weightKg": 75.5
+  },
+  "measurements": [
+    {
+      "timestamp": 1748987472000,
+      "dateLabel": "01.06.2026 08:10",
+      "systolic": 89,
+      "diastolic": 59,
+      "pulse": 61,
+      "weightKg": 61.6,
+      "ntProBnp": null,
+      "troponin": null,
+      "notes": ""
+    }
+  ],
+  "medications": [
+    {
+      "name": "Metformin",
+      "dosage": "1000mg",
+      "morning": 1,
+      "noon": 0,
+      "evening": 1,
+      "night": 0,
+      "isActive": true
+    }
+  ]
+}
+```
+
+---
+
+## 📄 Lizenz
+
+Dieses Projekt steht unter der **MIT-Lizenz** – siehe [LICENSE](LICENSE) für Details.
+
+---
+
+## 👨‍💻 Entwickler
+
+**Caner Oktay**  
+Android-Entwicklung mit Kotlin & Jetpack Compose
+
+---
+
+*Entwickelt mit ❤️ für Herzpatienten und ihre Angehörigen*
