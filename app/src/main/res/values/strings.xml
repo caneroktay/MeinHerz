@@ -117,9 +117,10 @@
     <string name="chart_weight">⚖️ Kilo</string>
     <string name="chart_all">Tümü</string>
     <string name="chart_30">Son 30 Gün</string>
+    <string name="chart_exp_text">Grafik için en az 2 ölçüm gerekli</string>
+    <string name="chart_title">Grafikler</string>
     <string name="report_title">📄 Rapor Oluştur</string>
     <string name="report_subtitle">Ölçüm verilerinizi ve tıbbi bilgilerinizi PDF olarak dışa aktarın.</string>
-
     <string name="report_date_from_to">📅 Tarih Aralığı</string>
     <string name="report_date_begin">Başlangıç</string>
     <string name="report_date_end">Bitiş</string>
@@ -129,7 +130,6 @@
     <string name="report_select">📊 Seçilen Ölçüm</string>
     <string name="report_isempty"> Seçilen tarih aralığında ölçüm bulunamadı. Lütfen farklı bir aralık seçin.</string>
     <string name="report_short_cut">Hızlı Seçim</string>
-
     <string name="report_box_title">Rapor İçeriği</string>
     <string name="report_box_person">👤 Hasta</string>
     <string name="report_box_measurement">📊 Toplam Ölçüm</string>

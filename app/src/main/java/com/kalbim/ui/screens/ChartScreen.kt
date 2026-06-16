@@ -29,7 +29,7 @@ enum class ChartRange { SON30, TUMU }
 @Composable
 fun ChartScreen(vm: KalbimViewModel) {
     val measurements by vm.allMeasurements.collectAsState()
-    var selectedChart by remember { mutableStateOf(ChartType.TANSIYON) }
+    var selectedChart by remember { mutableStateOf(ChartType.NABIZ) }
     var selectedRange by remember { mutableStateOf(ChartRange.SON30) }
 
     // Seçilen aralığa göre filtrele
@@ -54,7 +54,7 @@ fun ChartScreen(vm: KalbimViewModel) {
                 .padding(horizontal = 24.dp, vertical = 24.dp)
         ) {
             Text(
-                "Grafikler",
+                stringResource(R.string.chart_title),
                 style = MaterialTheme.typography.headlineSmall,
                 color = Color.White,
                 fontWeight = FontWeight.Bold
@@ -116,7 +116,7 @@ fun ChartScreen(vm: KalbimViewModel) {
                             Text("📊", fontSize = 40.sp)
                             Spacer(Modifier.height(8.dp))
                             Text(
-                                "Grafik için en az 2 ölçüm gerekli",
+                                stringResource(R.string.chart_exp_text),
                                 style = MaterialTheme.typography.bodyMedium,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
@@ -126,11 +126,11 @@ fun ChartScreen(vm: KalbimViewModel) {
             }
 
             // ── Tüm Metrikler Özet Kartları ─────────────────
-            Text(
-                "Tüm Metrikler",
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold
-            )
+            //Text(
+            //    "Tüm Metrikler",
+            //    style = MaterialTheme.typography.titleMedium,
+            //    fontWeight = FontWeight.Bold
+            //)
 
             val bpData     = measurements.filter { it.systolic  != null }.reversed()
             val weightData = measurements.filter { it.weightKg  != null }.reversed()
@@ -138,7 +138,7 @@ fun ChartScreen(vm: KalbimViewModel) {
 
             if (bpData.size >= 2) {
                 MiniMetricChart(
-                    title  = "🩺 Tansiyon",
+                    title  = stringResource(R.string.chart_pressure),
                     points = bpData.map { it.systolic!!.toFloat() },
                     color  = ChartRed,
                     unit   = "mmHg",
@@ -147,7 +147,7 @@ fun ChartScreen(vm: KalbimViewModel) {
             }
             if (weightData.size >= 2) {
                 MiniMetricChart(
-                    title  = "⚖️ Kilo",
+                    title  = stringResource(R.string.chart_weight),
                     points = weightData.map { it.weightKg!! },
                     color  = ChartGreen,
                     unit   = "kg",

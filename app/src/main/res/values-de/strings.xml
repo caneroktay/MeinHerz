@@ -117,10 +117,11 @@
     <string name="chart_weight">⚖️ Gewicht</string>
     <string name="chart_all">Alle</string>
     <string name="chart_30">Letzte 30 Tage</string>
+    <string name="chart_exp_text">Für das Diagramm sind mindestens 2 Messwerte erforderlich</string>
+    <string name="chart_title">Diagramme</string>
     <string name="report_title">📄 Bericht erstellen</string>
     <string name="report_subtitle">Exportieren Sie Ihre Messdaten und medizinischen Informationen als PDF.</string>
     <string name="report_box_title">Berichtsinhalte</string>
-
     <string name="report_date_from_to">📅 Zeitraum</string>
     <string name="report_date_begin">Startdatum</string>
     <string name="report_date_end">Enddatum</string>
@@ -130,7 +131,6 @@
     <string name="report_select">📊 Ausgewählter Messwert</string>
     <string name="report_isempty">Im ausgewählten Zeitraum wurden keine Messwerte gefunden. Bitte wählen Sie einen anderen Zeitraum.</string>
     <string name="report_short_cut">Schnellauswahl</string>
-
     <string name="report_box_person">👤 Patient</string>
     <string name="report_box_measurement">📊 Gesamtmessungen</string>
     <string name="report_box_measurement_text">Einträge</string>

@@ -117,9 +117,10 @@
     <string name="chart_weight">⚖️ Weight</string>
     <string name="chart_all">All</string>
     <string name="chart_30">Last 30 Days</string>
+    <string name="chart_exp_text">Für das Diagramm sind mindestens 2 Messwerte erforderlich</string>
+    <string name="chart_title">Diagramme</string>
     <string name="report_title">📄 Create Report</string>
     <string name="report_subtitle">Export your measurement data and medical information as a PDF.</string>
-
     <string name="report_date_from_to">📅 Date Range</string>
     <string name="report_date_begin">Start Date</string>
     <string name="report_date_end">End Date</string>
@@ -129,7 +130,6 @@
     <string name="report_select">📊 Selected Measurement</string>
     <string name="report_isempty">No measurements found within the selected date range. Please select a different range.</string>
     <string name="report_short_cut">Quick Select</string>
-
     <string name="report_box_title">Report Content</string>
     <string name="report_box_person">👤 Patient</string>
     <string name="report_box_measurement">📊 Total Measurements</string>
