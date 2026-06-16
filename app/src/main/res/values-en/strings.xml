@@ -117,8 +117,8 @@
     <string name="chart_weight">⚖️ Weight</string>
     <string name="chart_all">All</string>
     <string name="chart_30">Last 30 Days</string>
-    <string name="chart_exp_text">Für das Diagramm sind mindestens 2 Messwerte erforderlich</string>
-    <string name="chart_title">Diagramme</string>
+    <string name="chart_exp_text">At least 2 measurements are required for the chart</string>
+    <string name="chart_title">Charts</string>
     <string name="report_title">📄 Create Report</string>
     <string name="report_subtitle">Export your measurement data and medical information as a PDF.</string>
     <string name="report_date_from_to">📅 Date Range</string>
