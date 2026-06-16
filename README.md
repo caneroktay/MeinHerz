@@ -182,7 +182,7 @@ Das JSON-Backup-Format für Import/Export:
 
 ## 📄 Lizenz
 
-Dieses Projekt steht unter der **MIT-Lizenz** – siehe [LICENSE](LICENSE) für Details.
+Dieses Projekt steht unter der **MIT-Lizenz** – siehe [LICENSE](license.txt) für Details.
 
 ---
 
