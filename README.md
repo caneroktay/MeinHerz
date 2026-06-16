@@ -12,7 +12,8 @@ Visualisierung und den Export von medizinischen Messwerten – vollständig offl
 
 ## 📱 Screenshots
 
-![1](assets/1.png)
+![1](assets/1.png) ![1](assets/2.png) ![1](assets/3.png)
+![1](assets/4.png) ![1](assets/5.png) ![1](assets/6.png)
 
 ---
 
