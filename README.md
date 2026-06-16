@@ -12,9 +12,7 @@ Visualisierung und den Export von medizinischen Messwerten – vollständig offl
 
 ## 📱 Screenshots
 
-| Startbildschirm | Dashboard | Diagramme | Bericht |
-|---|---|---|---|
-| ![Splash](assets/img/README/screen_splash.png) | ![Home](assets/img/README/screen_home.png) | ![Charts](assets/img/README/screen_charts.png) | ![Report](assets/img/README/screen_report.png) |
+![1](assets/1.png)
 
 ---
 
