@@ -119,6 +119,17 @@
     <string name="chart_30">Last 30 Days</string>
     <string name="report_title">📄 Create Report</string>
     <string name="report_subtitle">Export your measurement data and medical information as a PDF.</string>
+
+    <string name="report_date_from_to">📅 Date Range</string>
+    <string name="report_date_begin">Start Date</string>
+    <string name="report_date_end">End Date</string>
+    <string name="report_date_last7">Last 7 Days</string>
+    <string name="report_date_last30">Last 30 Days</string>
+    <string name="report_date_last90">Last 90 Days</string>
+    <string name="report_select">📊 Selected Measurement</string>
+    <string name="report_isempty">No measurements found within the selected date range. Please select a different range.</string>
+    <string name="report_short_cut">Quick Select</string>
+
     <string name="report_box_title">Report Content</string>
     <string name="report_box_person">👤 Patient</string>
     <string name="report_box_measurement">📊 Total Measurements</string>

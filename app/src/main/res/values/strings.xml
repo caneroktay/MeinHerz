@@ -119,6 +119,17 @@
     <string name="chart_30">Son 30 Gün</string>
     <string name="report_title">📄 Rapor Oluştur</string>
     <string name="report_subtitle">Ölçüm verilerinizi ve tıbbi bilgilerinizi PDF olarak dışa aktarın.</string>
+
+    <string name="report_date_from_to">📅 Tarih Aralığı</string>
+    <string name="report_date_begin">Başlangıç</string>
+    <string name="report_date_end">Bitiş</string>
+    <string name="report_date_last7">Son 7 Gün</string>
+    <string name="report_date_last30">Son 30 Gün</string>
+    <string name="report_date_last90">Son 90 Gün</string>
+    <string name="report_select">📊 Seçilen Ölçüm</string>
+    <string name="report_isempty"> Seçilen tarih aralığında ölçüm bulunamadı. Lütfen farklı bir aralık seçin.</string>
+    <string name="report_short_cut">Hızlı Seçim</string>
+
     <string name="report_box_title">Rapor İçeriği</string>
     <string name="report_box_person">👤 Hasta</string>
     <string name="report_box_measurement">📊 Toplam Ölçüm</string>
