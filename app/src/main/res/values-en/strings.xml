@@ -203,5 +203,7 @@
     <string name="notif_evening_body">Don\'t forget to log your evening blood pressure.</string>
     <string name="notif_med_title">💊 Medication Reminder</string>
     <string name="notif_med_body">Don\'t forget to take %s!</string>
+    <string name="edit_measurement">Edit Measurement</string>
+    <string name="notes">Notes</string>
 
 </resources>

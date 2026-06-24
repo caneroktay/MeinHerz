@@ -160,6 +160,9 @@ class KalbimViewModel(app: Application) : AndroidViewModel(app) {
             )
         }
     }
+    fun updateMeasurement(m: Measurement) = viewModelScope.launch {
+        repo.updateMeasurement(m)
+    }
 
     fun deleteMeasurement(m: Measurement) = viewModelScope.launch {
         repo.deleteMeasurement(m)

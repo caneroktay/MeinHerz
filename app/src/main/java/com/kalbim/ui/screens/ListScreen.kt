@@ -4,8 +4,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
@@ -16,6 +18,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kalbim.data.model.Measurement
@@ -28,6 +31,7 @@ import com.kalbim.R
 fun ListScreen(vm: KalbimViewModel) {
     val measurements by vm.allMeasurements.collectAsState()
     var deleteTarget by remember { mutableStateOf<Measurement?>(null) }
+    var editTarget   by remember { mutableStateOf<Measurement?>(null) }
     var searchQuery  by remember { mutableStateOf("") }
 
     val filtered = if (searchQuery.isBlank()) measurements
@@ -38,7 +42,6 @@ fun ListScreen(vm: KalbimViewModel) {
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
-        // ── Header ─────────────────────────────────────────
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -67,7 +70,6 @@ fun ListScreen(vm: KalbimViewModel) {
         ) {
             Spacer(Modifier.height(16.dp))
 
-            // Arama kutusu
             OutlinedTextField(
                 value = searchQuery,
                 onValueChange = { searchQuery = it },
@@ -111,7 +113,8 @@ fun ListScreen(vm: KalbimViewModel) {
                             Text(
                                 stringResource(R.string.list_new_add),
                                 style = MaterialTheme.typography.bodyMedium,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                                    .copy(alpha = 0.6f)
                             )
                         }
                     }
@@ -121,6 +124,7 @@ fun ListScreen(vm: KalbimViewModel) {
                     items(filtered, key = { it.id }) { m ->
                         MeasurementListCard(
                             measurement = m,
+                            onEdit      = { editTarget = m },
                             onDelete    = { deleteTarget = m }
                         )
                     }
@@ -128,6 +132,18 @@ fun ListScreen(vm: KalbimViewModel) {
                 }
             }
         }
+    }
+
+    // Düzenleme dialog
+    editTarget?.let { m ->
+        EditMeasurementDialog(
+            measurement = m,
+            onDismiss   = { editTarget = null },
+            onSave      = { updated ->
+                vm.updateMeasurement(updated)
+                editTarget = null
+            }
+        )
     }
 
     // Silme onay dialog
@@ -140,18 +156,19 @@ fun ListScreen(vm: KalbimViewModel) {
                     Icon(Icons.Filled.Delete, null,
                         tint = MaterialTheme.colorScheme.error)
                     Spacer(Modifier.width(8.dp))
-                    Text(stringResource(R.string.delete_title), fontWeight = FontWeight.Bold)
+                    Text(stringResource(R.string.delete_title),
+                        fontWeight = FontWeight.Bold)
                 }
             },
             text = {
-                Text("${m.dateLabel}" + " " + stringResource(R.string.delete_title_desc))
+                Text("${m.dateLabel}" + " " +
+                        stringResource(R.string.delete_title_desc))
             },
             confirmButton = {
                 Button(
                     onClick = { vm.deleteMeasurement(m); deleteTarget = null },
                     colors  = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.error
-                    ),
+                        containerColor = MaterialTheme.colorScheme.error),
                     shape = RoundedCornerShape(10.dp)
                 ) { Text(stringResource(R.string.delete), color = Color.White) }
             },
@@ -166,7 +183,11 @@ fun ListScreen(vm: KalbimViewModel) {
 }
 
 @Composable
-fun MeasurementListCard(measurement: Measurement, onDelete: () -> Unit) {
+fun MeasurementListCard(
+    measurement: Measurement,
+    onEdit: () -> Unit,
+    onDelete: () -> Unit
+) {
     Card(
         modifier  = Modifier.fillMaxWidth(),
         shape     = RoundedCornerShape(16.dp),
@@ -176,13 +197,17 @@ fun MeasurementListCard(measurement: Measurement, onDelete: () -> Unit) {
         )
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
-            // Tarih + Sil butonu
+
+            // Tarih + Butonlar
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.weight(1f)
+                ) {
                     Box(
                         modifier = Modifier
                             .size(8.dp)
@@ -197,21 +222,49 @@ fun MeasurementListCard(measurement: Measurement, onDelete: () -> Unit) {
                         color = MaterialTheme.colorScheme.primary
                     )
                 }
-                IconButton(
-                    onClick  = onDelete,
-                    modifier = Modifier.size(32.dp)
-                ) {
-                    Icon(
-                        Icons.Filled.Delete,
-                        contentDescription = "Sil",
-                        tint = MaterialTheme.colorScheme.error.copy(alpha = 0.7f),
-                        modifier = Modifier.size(18.dp)
+
+                // Düzenle butonu
+                OutlinedButton(
+                    onClick = onEdit,
+                    modifier = Modifier.height(32.dp),
+                    contentPadding = PaddingValues(horizontal = 10.dp),
+                    shape = RoundedCornerShape(8.dp),
+                    border = ButtonDefaults.outlinedButtonBorder.copy(width = 1.dp),
+                    colors = ButtonDefaults.outlinedButtonColors(
+                        contentColor = MaterialTheme.colorScheme.primary
                     )
+                ) {
+                    Icon(Icons.Filled.Edit, null,
+                        modifier = Modifier.size(14.dp))
+                    Spacer(Modifier.width(4.dp))
+                    Text(stringResource(R.string.edit),
+                        style = MaterialTheme.typography.labelSmall)
+                }
+
+                Spacer(Modifier.width(6.dp))
+
+                // Sil butonu
+                OutlinedButton(
+                    onClick = onDelete,
+                    modifier = Modifier.height(32.dp),
+                    contentPadding = PaddingValues(horizontal = 10.dp),
+                    shape = RoundedCornerShape(8.dp),
+                    border = ButtonDefaults.outlinedButtonBorder.copy(width = 1.dp),
+                    colors = ButtonDefaults.outlinedButtonColors(
+                        contentColor = MaterialTheme.colorScheme.error
+                    )
+                ) {
+                    Icon(Icons.Filled.Delete, null,
+                        modifier = Modifier.size(14.dp))
+                    Spacer(Modifier.width(4.dp))
+                    Text(stringResource(R.string.delete),
+                        style = MaterialTheme.typography.labelSmall)
                 }
             }
 
             Spacer(Modifier.height(10.dp))
-            HorizontalDivider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f))
+            HorizontalDivider(
+                color = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f))
             Spacer(Modifier.height(10.dp))
 
             // Değerler
@@ -295,6 +348,161 @@ fun MeasurementListCard(measurement: Measurement, onDelete: () -> Unit) {
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun EditMeasurementDialog(
+    measurement: Measurement,
+    onDismiss: () -> Unit,
+    onSave: (Measurement) -> Unit
+) {
+    var sys    by remember { mutableStateOf(measurement.systolic?.toString()  ?: "") }
+    var dia    by remember { mutableStateOf(measurement.diastolic?.toString() ?: "") }
+    var pulse  by remember { mutableStateOf(measurement.pulse?.toString()     ?: "") }
+    var weight by remember { mutableStateOf(measurement.weightKg?.toString()  ?: "") }
+    var bnp    by remember { mutableStateOf(measurement.ntProBnp?.toString()  ?: "") }
+    var trop   by remember { mutableStateOf(measurement.troponin?.toString()  ?: "") }
+    var notes  by remember { mutableStateOf(measurement.notes) }
+
+    androidx.compose.ui.window.Dialog(onDismissRequest = onDismiss) {
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            shape    = RoundedCornerShape(24.dp)
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .verticalScroll(rememberScrollState())
+                    .padding(24.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(Icons.Filled.Edit, null,
+                        tint = NavyPrimary, modifier = Modifier.size(22.dp))
+                    Spacer(Modifier.width(8.dp))
+                    Text(
+                        stringResource(R.string.edit_measurement),
+                        style = MaterialTheme.typography.titleLarge,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+                Text(
+                    measurement.dateLabel,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+
+                HorizontalDivider()
+
+                if (measurement.systolic != null) {
+                    Text("🩺 ${stringResource(R.string.home_pressure)}",
+                        style = MaterialTheme.typography.labelMedium,
+                        fontWeight = FontWeight.SemiBold)
+                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        KalbimTextField(
+                            value = sys, onValueChange = { sys = it },
+                            label = stringResource(R.string.systolic),
+                            modifier = Modifier.weight(1f),
+                            keyboardType = KeyboardType.Number,
+                            colors = OutlinedTextFieldDefaults.colors(
+                                focusedBorderColor = NavyPrimary)
+                        )
+                        KalbimTextField(
+                            value = dia, onValueChange = { dia = it },
+                            label = stringResource(R.string.diastolic),
+                            modifier = Modifier.weight(1f),
+                            keyboardType = KeyboardType.Number,
+                            colors = OutlinedTextFieldDefaults.colors(
+                                focusedBorderColor = NavyPrimary)
+                        )
+                    }
+                    KalbimTextField(
+                        value = pulse, onValueChange = { pulse = it },
+                        label = "${stringResource(R.string.pulse)} (bpm)",
+                        keyboardType = KeyboardType.Number,
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedBorderColor = NavyPrimary)
+                    )
+                }
+
+                if (measurement.weightKg != null) {
+                    Text("⚖️ ${stringResource(R.string.weight)}",
+                        style = MaterialTheme.typography.labelMedium,
+                        fontWeight = FontWeight.SemiBold)
+                    KalbimTextField(
+                        value = weight, onValueChange = { weight = it },
+                        label = "${stringResource(R.string.weight)} (kg)",
+                        keyboardType = KeyboardType.Decimal,
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedBorderColor = NavyPrimary)
+                    )
+                }
+
+                if (measurement.ntProBnp != null || measurement.troponin != null) {
+                    Text("🧪 ${stringResource(R.string.nt_pro_bnp)}",
+                        style = MaterialTheme.typography.labelMedium,
+                        fontWeight = FontWeight.SemiBold)
+                    if (measurement.ntProBnp != null)
+                        KalbimTextField(
+                            value = bnp, onValueChange = { bnp = it },
+                            label = "${stringResource(R.string.nt_pro_bnp)} (pg/mL)",
+                            keyboardType = KeyboardType.Decimal,
+                            colors = OutlinedTextFieldDefaults.colors(
+                                focusedBorderColor = NavyPrimary)
+                        )
+                    if (measurement.troponin != null)
+                        KalbimTextField(
+                            value = trop, onValueChange = { trop = it },
+                            label = "${stringResource(R.string.troponin)} (ng/L)",
+                            keyboardType = KeyboardType.Decimal,
+                            colors = OutlinedTextFieldDefaults.colors(
+                                focusedBorderColor = NavyPrimary)
+                        )
+                }
+
+                OutlinedTextField(
+                    value         = notes,
+                    onValueChange = { notes = it },
+                    label         = { Text(stringResource(R.string.notes)) },
+                    modifier      = Modifier.fillMaxWidth(),
+                    shape         = RoundedCornerShape(12.dp),
+                    maxLines      = 3,
+                    colors        = OutlinedTextFieldDefaults.colors(
+                        focusedBorderColor = NavyPrimary)
+                )
+
+                HorizontalDivider()
+
+                Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                    OutlinedButton(
+                        onClick  = onDismiss,
+                        modifier = Modifier.weight(1f),
+                        shape    = RoundedCornerShape(12.dp)
+                    ) { Text(stringResource(R.string.cancel)) }
+
+                    Button(
+                        onClick = {
+                            onSave(
+                                measurement.copy(
+                                    systolic  = sys.toIntOrNull()      ?: measurement.systolic,
+                                    diastolic = dia.toIntOrNull()      ?: measurement.diastolic,
+                                    pulse     = pulse.toIntOrNull()    ?: measurement.pulse,
+                                    weightKg  = weight.toFloatOrNull() ?: measurement.weightKg,
+                                    ntProBnp  = bnp.toFloatOrNull()    ?: measurement.ntProBnp,
+                                    troponin  = trop.toFloatOrNull()   ?: measurement.troponin,
+                                    notes     = notes.trim()
+                                )
+                            )
+                        },
+                        modifier = Modifier.weight(1f),
+                        shape    = RoundedCornerShape(12.dp),
+                        colors   = ButtonDefaults.buttonColors(
+                            containerColor = NavyPrimary)
+                    ) { Text(stringResource(R.string.save), color = Color.White) }
                 }
             }
         }

@@ -203,5 +203,7 @@
     <string name="notif_evening_body">Vergessen Sie nicht, Ihren Abend-Blutdruck einzutragen.</string>
     <string name="notif_med_title">💊 Medikamenten-Erinnerung</string>
     <string name="notif_med_body">Vergessen Sie nicht, %s einzunehmen!</string>
+    <string name="edit_measurement">Messung bearbeiten</string>
+    <string name="notes">Notizen</string>
 
 </resources>

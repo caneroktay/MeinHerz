@@ -203,7 +203,8 @@
     <string name="notif_evening_body">Akşam tansiyon ölçümünüzü girmeyi unutmayın.</string>
     <string name="notif_med_title">💊 İlaç Hatırlatıcısı</string>
     <string name="notif_med_body">%s almayı unutmayın!</string>
-
+    <string name="edit_measurement">Ölçümü Düzenle</string>
+    <string name="notes">Notlar</string>
 
 
 </resources>
