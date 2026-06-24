@@ -175,7 +175,7 @@ object PdfGenerator {
                 context.getString(R.string.pdf_person_fullname) + "          : " + "${profile.firstName} ${profile.lastName}",
                 context.getString(R.string.pdf_person_bday) + "   : " + "${profile.birthDate}",
                 context.getString(R.string.pdf_person_rday) + "     : " + "$today",
-                if (fromDate.isNotBlank()) "Tarih Aralığı: $fromDate — $toDate" else ""
+                if (fromDate.isNotBlank()) "$fromDate — $toDate" else ""
             ).filter { it.isNotBlank() }
 
             infoLines.forEach { line ->
