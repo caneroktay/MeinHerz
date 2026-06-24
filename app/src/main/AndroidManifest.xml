@@ -11,8 +11,8 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/kalbim_icon"
-        android:roundIcon="@drawable/kalbim_icon"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/Theme.Kalbim"
         android:supportsRtl="true"
@@ -22,7 +22,6 @@
             android:name=".MainActivity"
             android:exported="true"
             android:configChanges="locale|layoutDirection"
-            android:icon="@drawable/kalbim_icon"
             android:theme="@style/Theme.Kalbim.SplashScreen"
             >
             <intent-filter>
